@@ -2,22 +2,19 @@ using UnityEngine;
 
 public class LineExpander : MonoBehaviour
 {
-    private float speed; 
     private GameObject chart;
     public bool expandLine;
+    [SerializeField] private float speed; 
+    [SerializeField] private float lineWidth;
+    [SerializeField] private GameObject LineCollider;
     private float maxTime;
     private float cumTime;
-    private float lineWidth;
-
+    
     private void Awake()
     {
-        expandLine = true;
-
-        speed = 25;
-        maxTime = Random.Range(0.1f, 0.4f);
-        lineWidth = 0.4f; 
-
-        chart = transform.parent.parent.gameObject;
+        chart = transform.parent.gameObject;
+        expandLine = true; 
+        maxTime = Random.Range(0.2f, 0.3f);
     }
 
     private void Update()
@@ -28,14 +25,14 @@ public class LineExpander : MonoBehaviour
             cumTime += Time.deltaTime;
             if(cumTime >= maxTime)
             {
+                cumTime = 0;
                 expandLine = false;
-                chart.GetComponent<ChartSetup>().AddNewLine(transform.Find("LineCollider").position.x, transform.Find("LineCollider").position.y, transform.Find("LineCollider").position.z);
+                LineCollider.GetComponent<Transform>().localScale = new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z);
+                LineCollider.GetComponent<SpriteRenderer>().enabled = true;
+                chart.GetComponent<ChartSetup>().AddNewLine(transform.Find("LineCollider").position.x, 
+                                                            transform.Find("LineCollider").position.y, 
+                                                            transform.Find("LineCollider").position.z);
             }
         } 
     }  
-
-    public void StopExpand()
-    {
-        expandLine = false;
-    }
 }
