@@ -20,7 +20,7 @@ public class ChartSetup : MonoBehaviour
     {
        lineID = -1;
        connectorID = -1;
-       rotation = 1.0f;
+       rotation = -1.0f;
        AddNewLine(0.0f, 0.0f, 0.0f); 
     }
 
@@ -34,7 +34,7 @@ public class ChartSetup : MonoBehaviour
         connectorModID = connectorID % lineConnector.Length;
 
         //Initialize rotation
-        rotation = -Mathf.Sign(rotation) * Random.Range(0.0f, 89.0f);
+        rotation = -Mathf.Sign(rotation) * Random.Range(60.0f, 80.0f);
 
         //We transform the lineExpander to have correct scale, position and rotation
         lineExpander[lineModID].transform.localScale = new Vector3(0.1f, 0.3f, 1.0f);

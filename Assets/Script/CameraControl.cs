@@ -27,14 +27,29 @@ public class CameraControl : MonoBehaviour
         lowerCameraLimit = transform.position.y - cameraOffsetY; 
 
         if (currentY > upperCameraLimit)
+        {
             transform.position = new Vector3(currentX - cameraOffsetX, transform.position.y + currentY - upperCameraLimit, transform.position.z);
+            axisY.transform.position = new Vector3(currentX - cameraOffsetX - axisYOffset, axisY.transform.position.y + currentY - upperCameraLimit, axisY.transform.position.z);
+            axisX.transform.position = new Vector3(currentX - cameraOffsetX, axisX.transform.position.y + currentY - upperCameraLimit, axisX.transform.position.z);
+        }
         else if (currentY < lowerCameraLimit)
+        {
             transform.position = new Vector3(currentX - cameraOffsetX, transform.position.y + currentY - lowerCameraLimit, transform.position.z);
+            axisY.transform.position = new Vector3(currentX - cameraOffsetX - axisYOffset, axisY.transform.position.y + currentY - lowerCameraLimit, axisY.transform.position.z);
+            axisX.transform.position = new Vector3(currentX - cameraOffsetX, axisX.transform.position.y + currentY - lowerCameraLimit, axisX.transform.position.z);
+        }
         else
+        {
             transform.position = new Vector3(currentX - cameraOffsetX, transform.position.y, transform.position.z);
+            axisY.transform.position = new Vector3(currentX - cameraOffsetX - axisYOffset, axisY.transform.position.y, axisY.transform.position.z);
+            axisX.transform.position = new Vector3(currentX - cameraOffsetX, axisX.transform.position.y, axisY.transform.position.z);
+        }
 
-        axisY.transform.position = new Vector3(currentX - cameraOffsetX - axisYOffset, axisY.transform.position.y, axisY.transform.position.z);
-        axisX.transform.position = new Vector3(currentX - cameraOffsetX - axisYOffset, lowerCameraLimit - axisXOffset, axisX.transform.position.z);
+        //axisY.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        //
+
+        
+        
 
         //lookAhead = Mathf.Lerp(lookAhead, (aheadDistance * player.localScale.x), Time.deltaTime * cameraSpeed);
     }
